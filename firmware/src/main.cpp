@@ -188,7 +188,7 @@ void setup() {
   }
 
   //DONE
-  showOLED("HSOD: HOME SECURITY OF DOOM", "", "Press ENT", "to arm");
+  showOLED("HSOD: HOME SECURITY OF DOOM", "", "Enter PIN + ENT", "to arm");
   initVoice();
   keypad.setHoldTime(850);
 }
@@ -220,19 +220,30 @@ void handleDISARMED(char key) {
   digitalWrite(PIN_LED_RED, LOW);
 
   if (key == 'E') {
-    EnteredPin = "";
-    CurrentState = STATE_ARMED;
-    lastBeepAt = 0;
-    countdownLeft = countdown_before_alarm;
-    stateEnterAt = millis();
-    dfplayer.play(MP3_ARMED);
-    showOLED("ARMED", "", "(ㆆ_ㆆ)", "");
+    if (EnteredPin == PIN) {
+      EnteredPin = "";
+      CurrentState = STATE_ARMED;
+      lastBeepAt = 0;
+      countdownLeft = countdown_before_alarm;
+      stateEnterAt = millis();
+      dfplayer.play(MP3_ARMED);
+      showOLED("ARMED", "", "(ㆆ_ㆆ)", "");
+    } else {
+      EnteredPin = "";
+      dfplayer.play(MP3_WRONG_PIN);
+      showOLED("DISARMED", "WRONG PIM", "Cannot Arm", "");
+      delay(1200);
+      showOLED("DISARMED", "", "Enter PIN + ENT", "to arm");
+    }
     return;
   }
 
   if (key == 'C') {
     EnteredPin = "";
-    showOLED("DISARMED", "", "Press ENT", "to arm");
+    showOLED("DISARMED", "", "Enter PIN + ENT", "to arm");
+  } else if (key) {
+    EnteredPin += key;
+    showOLED("DISARMED", "PIN:", maskPIN(EnteredPin), "");
   }
 }
 
@@ -274,7 +285,7 @@ void handleAlarm(char key) {
   if (!alarmPlaying) {
     dfplayer.loop(MP3_ALARM_FULL);
     alarmPlaying = true;
-    showOLED("!! INTRUDER ALERT !!", "Hold C for Voice", "PIN: " + maskPIN(EnteredPin), "");
+    showOLED("!! INTRUDER ALERT !!", "Hold C for Voice", "PIN:", maskPIN(EnteredPin));
   }
 
   //Keypad
@@ -301,13 +312,13 @@ void handleAlarm(char key) {
       }
     } else {
       EnteredPin = "";
-      showOLED("!! INTRUDER ALERT !!", "PIN Cleared", "PIN: ", "");
+      showOLED("!! INTRUDER ALERT !!", "PIN Cleared", "PIN:", "");
     }
   } else if (key == 'E') {
     checkPIN();
   } else if (key) {
     EnteredPin += key;
-    showOLED("!! INTRUDER ALERT !!", "Hold C for Voice", "PIN: ", maskPIN(EnteredPin));
+    showOLED("!! INTRUDER ALERT !!", "Hold C for Voice", "PIN:", maskPIN(EnteredPin));
   }
 }
 

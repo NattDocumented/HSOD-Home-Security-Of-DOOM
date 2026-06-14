@@ -17,15 +17,15 @@ My personal option is DOOM ETERNAL MUSIC INTRO with + "so you are the chosen one
 It is very simple, here's how to use it!
 
 ### 1. Arming the Device
-* **Action:** 
+* **Action:** On boot the system is disarmed, input the PIN.
 * **Outcome:** The current state of the device will change from unarmed to armed and the OLED display and an audio cue from the speaker will indicate that!
 
 ### 2. INTRUDER ALERT!!!
-* **Action:**
+* **Action:** Human detected.
 * **Outcome:** The device enters a warning state or a countdown state to be exact. The OLED display and a countdown coming form the speaker tracking your remaining time will also indicate that!
 
 ### 3. Disarming the Device
-* **Action:**
+* **Action:** Input the PIN.
 * **Outcome:**
   * **Correct PIN:** Everything reset and goes back to normal (back to the unarmed/disarmed state) the OLED display and the sound cue will also indicate it as well!
   * **Incorrect PIN:** Everything continues, but you can still go ahead and try again until the countdown reaches zero (but there's also a max attempt)
@@ -75,7 +75,7 @@ graph TD;
 stateDiagram-v2
   [*] --> STATE_DISARMED : Boot
 
-  STATE_DISARMED --> STATE_ARMED
+  STATE_DISARMED --> STATE_ARMED : Enter PIN + ENT
 
   STATE_ARMED --> STATE_COUNTDOWN : Human Detected
 
