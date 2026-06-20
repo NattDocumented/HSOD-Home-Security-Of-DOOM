@@ -167,13 +167,29 @@ git clone https://github.com/NattDocumented/HSOD-Home-Security-Of-DOOM.git
 2. Make sure you have the official **PlatformIO IDE** extension installed (look for the alien icon on the left sidebar).
 3. Click `File` > `Open Folder...` from the top menu, navigate to the folder you just cloned, and click **Open**. (Make sure you open the root folder containing the `platformio.ini` file)
 
-#### 3. Build and Upload
+#### 3. Making Voice Unlock Works
+
+1. Login to [Wit.ai](https://wit.ai) with your Meta (a.k.a. Facebook) account.
+2. If done correctly, it should lead you to the dashboard/apps, if not [click this](https://wit.ai/apps).
+3. Click **+ New App** to create a new app **(obviously)**. You can name it whatever you please, but I personally just named it `"hsod"`.
+4. Go into your newly created app. You'll see a sidebar. Click on **Management**, and go to **Settings**.
+5. Copy your **Client Access Token** and replace these line in the firmware's code.
+   
+    ```cpp
+    const char* WIFI_SSID = "YOUR_WIFI_SSID"; // Your WiFi's SSID
+    const char* WIFI_PASS = "YOUR_WIFI_PASSWORD"; // Your WiFi Password here
+    const char* WIT_TOKEN = "YOUR_WIT_AI_TOKEN"; // Your Wit.ai's token here
+    ```
+
+6. **Done!** This part is finish. Let's move on to the next one.
+
+#### 4. Build and Upload
 1. Connect a USB-C data cable from your computer into your Arduino Nano ESP32 port.
 2. Click the **PlatformIO Alien Icon** on the left menu bar.
 3. Under the Project Tasks menu, click **Build** to compile the codebase.
 4. Once the terminal displays a green `[SUCCESS]` message, click **Upload** right below it to flash the firmware onto your board.
 
-#### 4. Done
+#### 5. Done
 As soon as the upload completes, the Green SMD LED will light up, the OLED screen will wake up showing the main menu, and your speaker will play the system startup sound.
 
 ### [7] : Casing / Enclosure
