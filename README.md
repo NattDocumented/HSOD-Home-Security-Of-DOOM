@@ -187,6 +187,10 @@ After finishing the other steps, I think this one is the easiest, so don't be ti
 
 ## Gallery
 
+### Finished Product Renders
+![alt text](resources/media/HSOD3DMODELCASING_RENDERING_2026-Jun-28_10-33-26AM-000_CustomizedView2453074133.png)
+![alt text](resources/media/HSOD3DMODELCASING_RENDERING_2026-Jun-28_10-57-48AM-000_CustomizedView22198051086.png)
+
 ### Schematics
 
 ![alt text](<resources/media/Screenshot 2026-06-10 192336.png>)
